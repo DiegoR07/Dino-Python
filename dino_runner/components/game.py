@@ -1,7 +1,7 @@
 import pygame
 
 
-from dino_runner.utils.constants import BG, ICON, DEAD,OVER, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, DEFAULT_TYPE
+from dino_runner.utils.constants import BG, ICON, DEAD, OVER, HEART, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, DEFAULT_TYPE
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.message import draw_message
@@ -11,6 +11,7 @@ from dino_runner.components.obstacles.cloud import Cloud
 
 class Game:
     def __init__(self):
+
         pygame.init()
         pygame.display.set_caption(TITLE)
         pygame.display.set_icon(ICON)
@@ -22,12 +23,12 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.player = Dinosaur()
-        self.cloud = Cloud()
         self.obstacle_manager = ObstacleManager()
         self.power_up_manager = PowerUpManager()
         self.running = False
         self.score = 0
         self.death_count = 0
+        
 
     def execute(self):
         self.running = True
@@ -48,6 +49,7 @@ class Game:
         # Game loop: events - update - draw
         self.obstacle_manager.reset_obstacles()
         self.playing = True
+        self.cloud = Cloud()
         self.reset_game()
         while self.playing:
             self.events()
@@ -78,8 +80,14 @@ class Game:
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
+        half_screen_height = SCREEN_HEIGHT // 2
+        half_screen_width = SCREEN_WIDTH // 2
+        self.screen.blit(HEART, (half_screen_width - 500, half_screen_height - 280))
+        self.screen.blit(HEART, (half_screen_width - 450, half_screen_height - 280))
+        self.screen.blit(HEART, (half_screen_width - 400, half_screen_height - 280))
         pygame.display.update()
         pygame.display.flip()
+        
 
     def draw_background(self):
         image_width = BG.get_width()
@@ -133,11 +141,15 @@ class Game:
             draw_message('Press any key to restart', self.screen)
         else:
             self.screen.fill(( 255, 93, 71 ))
+            self.screen.blit(HEART, (half_screen_width - 500, half_screen_height - 200))
+            self.screen.blit(HEART, (half_screen_width - 450, half_screen_height - 200))
+            self.screen.blit(HEART, (half_screen_width - 400, half_screen_height - 200))
             self.screen.blit(OVER, (half_screen_width - 150, half_screen_height - 200))
             self.screen.blit(DEAD, (half_screen_width - 20, half_screen_height - 140))
             draw_message('Press a key again to play the game again', self.screen)
-            draw_message(f'your score: {self.score}', self.screen, pos_y_center = half_screen_height + 50)
+            draw_message(f'Your score: {self.score}', self.screen, pos_y_center = half_screen_height + 50)
             draw_message(f'Death count: {self.death_count}', self.screen, pos_y_center = half_screen_height + 100)
+
 
         pygame.display.update()
         self.handle_events_on_menu()

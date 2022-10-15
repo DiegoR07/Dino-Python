@@ -14,6 +14,8 @@ IMG_DIR = os.path.join(os.path.dirname(__file__), "..", "assets")
 
 ICON = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoStart.png"))
 
+HEART = pygame.image.load(os.path.join(IMG_DIR, "Other/SmallHeart.png"))
+
 OVER = pygame.image.load(os.path.join(IMG_DIR, "Other/GameOver.png"))
 
 DEAD = pygame.image.load(os.path.join(IMG_DIR, "Dino/DinoDead.png"))

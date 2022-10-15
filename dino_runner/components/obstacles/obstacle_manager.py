@@ -19,6 +19,7 @@ class ObstacleManager:
                 self.obstacles.append(Cactus('SMALL'))
             elif random.randint(0, 2) == 2:
                 self.obstacles.append(Bird(BIRD))
+            
         
 
         for obstacle in self.obstacles:

@@ -9,11 +9,4 @@ class Cloud(Obstacle):
         self.y = random.randint(50, 100)
         self.image = CLOUD
         self.width = self.image.get_width()
-
-    def update(self,game_speed):
-        self.x -= game_speed
-        if self.x < -self.width:
-            self.x = SCREEN_WIDTH + random.randint(2500, 3000)
-            self.y = random.randint(50, 100)
-
     
